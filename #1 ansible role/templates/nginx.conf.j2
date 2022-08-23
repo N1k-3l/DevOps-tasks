@@ -1,0 +1,29 @@
+worker_processes  {{ nginx_worker_processes }};
+
+events {
+    use           epoll;
+    worker_connections  {{ nginx_worker_connections }};
+}
+
+error_log         logs/error.log {{ nginx_error_log_level | default('info') }};
+
+http {
+    server_tokens off;
+    include       mime.types;
+    charset       utf-8;
+
+    access_log    logs/access.log  {{ nginx_access_log_level | default('combined') }};
+
+    server {
+        server_name   {{ nginx_server_name }};
+        listen        {{ nginx_listen_port }};
+
+        error_page    500 502 503 504  /50x.html;
+
+        location      / {
+            root      {{ nginx_server_root }};
+        }
+
+    }
+
+}

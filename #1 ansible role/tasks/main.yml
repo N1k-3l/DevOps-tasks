@@ -1,0 +1,20 @@
+---
+- name: 'Install nginx'
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: 'Copy config file'
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: nginx restart
+
+- name: 'Enable and start service'
+  ansible.builtins.service:
+    name: nginx
+    state: started
+    enabled: yes
