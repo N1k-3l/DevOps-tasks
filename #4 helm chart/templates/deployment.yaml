@@ -43,7 +43,7 @@ spec:
               containerPort: 80
               protocol: TCP
           volumeMounts:
-            - name: nginx-config
+            - name: nginxconfig
               mountPath: /etc/nginx/
               subPath: nginx.conf
           livenessProbe:
